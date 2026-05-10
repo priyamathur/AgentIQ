@@ -1,0 +1,50 @@
+# Railway deployment ignore file
+# Exclude unnecessary files to reduce upload size
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+
+# Node modules (if any)
+node_modules/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
