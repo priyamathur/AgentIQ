@@ -315,7 +315,7 @@ def insert_seed_data():
         cursor.execute("SELECT COUNT(*) FROM agent_logs")
         log_count = cursor.fetchone()[0]
         
-        print(f"\n✅ Seed data inserted successfully!")
+        print("\n✅ Seed data inserted successfully!")
         print(f"   📈 {session_count} session summaries")
         print(f"   💭 {log_count} agent interaction logs")
         print(f"   🎯 {len(INTENT_TYPES)} intent types: {', '.join(INTENT_TYPES.keys())}")
@@ -331,7 +331,7 @@ def insert_seed_data():
             GROUP BY primary_intent
         """)
         
-        print(f"\n📊 Intent Performance Summary:")
+        print("\n📊 Intent Performance Summary:")
         for row in cursor.fetchall():
             intent, sessions, avg_success, avg_interactions, completed = row
             completion_rate = completed / sessions * 100
