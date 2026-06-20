@@ -420,13 +420,12 @@ def _bulk_write(db: Any, logs: List[Dict], evals: List[Dict]) -> None:
 # ---------------------------------------------------------------------------
 
 def main() -> None:
-    print("AgentIQ seed — initialising database …")
+    print("AgentIQ seed — initialising database …", flush=True)
     from api.database import SessionLocal, engine
     from db.models import Base
 
-    Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-    print("  Tables dropped and recreated.")
+    print("  Tables verified.", flush=True)
 
     all_logs: List[Dict] = []
     all_evals: List[Dict] = []
@@ -437,13 +436,13 @@ def main() -> None:
         all_evals.extend(evals)
         failed = sum(1 for e in evals if not e["passed"])
         print(f"  {scenario.name:25s} {scenario.session_count} sessions  "
-              f"{len(logs)} steps  {failed} failures")
+              f"{len(logs)} steps  {failed} failures", flush=True)
 
     rare_logs, rare_evals = _generate_rare_injections()
     all_logs.extend(rare_logs)
     all_evals.extend(rare_evals)
     print(f"  {'rare injections':25s} —          "
-          f"{len(rare_logs)} steps  {len(rare_evals)} failures")
+          f"{len(rare_logs)} steps  {len(rare_evals)} failures", flush=True)
 
     db = SessionLocal()
     try:
@@ -474,14 +473,14 @@ def main() -> None:
     print(f"  All 7 present:    {'✓' if not missing else f'✗ missing {missing}'}")
 
     # ── Run pattern analyzer ─────────────────────────────────────────────────
-    print("\nRunning pattern analysis …")
+    print("\nRunning pattern analysis …", flush=True)
     from agentiq.analyzer import run_analysis
     db = SessionLocal()
     try:
         n = run_analysis(AGENT_ID, db)
     finally:
         db.close()
-    print(f"  LossPattern rows written: {n}")
+    print(f"  LossPattern rows written: {n}", flush=True)
 
     print("\nDone. Launch the dashboard:")
     print("  streamlit run agentiq/dashboard.py --server.port 8501")
